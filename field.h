@@ -10,6 +10,7 @@ public:
     ~Field();
 
     int len() const;
+    void move(Robot* robot, int new_pos);
 
 private:
     Robot* robots[6];

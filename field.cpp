@@ -12,3 +12,7 @@ Field::Field(Robot* team[]) {
 int Field::len() const {
     return this->length;
 }
+
+void Field::move(Robot* robot, int new_pos) {
+    this->field[robot] = new_pos;
+}
