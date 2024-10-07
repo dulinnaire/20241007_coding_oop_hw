@@ -8,3 +8,7 @@ Field::Field(Robot* team[]) {
         this->field[team[i]] = 0;
     }
 }
+
+int Field::len() const {
+    return this->length;
+}

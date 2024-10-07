@@ -9,6 +9,8 @@ public:
     Field(Robot* team[]);
     ~Field();
 
+    int len() const;
+
 private:
     Robot* robots[6];
     std::map<Robot*, int> field;
