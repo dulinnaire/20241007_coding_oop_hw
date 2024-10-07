@@ -58,6 +58,7 @@ public:
     virtual void action();
 
 private:
+    bool has_ore;
 };
 
 // 步兵机器人

@@ -47,6 +47,7 @@ int Hero::get_attack() const {
 
 void Hero::action() {
     // Print info
+    std::cout << std::endl;
     std::cout << this->get_type() << "(" << this->get_id() << ") is acting" << std::endl;
     std::cout << "HP: " << this->get_health() << std::endl;
     std::cout << "Power: " << this->get_power() << std::endl;
@@ -102,8 +103,10 @@ std::string Engineer::get_type() const {
 int Engineer::get_attack() const {
     return 0;
 }
+
 void Engineer::action() {
     // Print info
+    std::cout << std::endl;
     std::cout << this->get_type() << "(" << this->get_id() << ") is acting" << std::endl;
     std::cout << "HP: " << this->get_health() << std::endl;
     std::cout << "Power: " << this->get_power() << std::endl;
@@ -139,6 +142,7 @@ void Engineer::action() {
             }
             if ((5 <= pos && pos < 8) || (12 < pos && pos <= 15)) {
                 std::cout << "Get ore at: position " << pos << std::endl;
+                this->has_ore = true;
             } else {
                 std::cout << "No ore at: position " << pos << std::endl;
             }
@@ -150,8 +154,9 @@ void Engineer::action() {
                 std::cout << "Select exchanging(0 for exchange): " << std::endl;
                 std::cin >> tmp;
             }
-            if (pos == 0 || pos == 19) {
+            if (this->has_ore && (pos == 0 || pos == 19)) {
                 std::cout << "Exchange succeeds!" << std::endl;
+                this->has_ore = false;
             } else {
                 std::cout << "Exchange fails!" << std::endl;
             }
