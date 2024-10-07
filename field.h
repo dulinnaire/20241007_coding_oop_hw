@@ -12,6 +12,8 @@ public:
     int len() const;
     void move(Robot* robot, int new_pos);
 
+    Robot* get_robot(int i) const;
+
 private:
     Robot* robots[6];
     std::map<Robot*, int> field;

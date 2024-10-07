@@ -20,7 +20,11 @@ int Robot::get_health() const {
 }
 
 void Robot::set_health(int health) {
-    this->health = health;
+    if (health < 0) {
+        this->health = 0;
+    } else {
+        this->health = health;
+    }
 }
 
 int Robot::get_power() const {
@@ -57,6 +61,28 @@ void Hero::action() {
     }
 
     // Perform action
+    switch (act) {
+        case MOVE:
+            tmp = -1;
+            while (!(0 <= tmp || tmp < this->get_field()->len())) {
+                std::cout << "Select moving: " << std::endl;
+                std::cin >> tmp;
+            }
+            std::cout << "Move to: position " << tmp << std::endl;
+            this->get_field()->move(this, tmp);
+            break;
+        case ATTACK:
+            tmp = -1;
+            while (!((0 <= tmp || tmp < 6) && this->get_field()->get_robot(tmp)->get_health() > 0))
+            {
+                std::cout << "Select attack target: " << std::endl;
+                std::cin >> tmp;
+            }
+            Robot* target = this->get_field()->get_robot(tmp);
+            target->set_health(target->get_health() - this->get_attack());
+            std::cout << "Attack on: " << target->get_type() << target->get_id() << std::endl;
+            break;
+    }
 }
 
 Engineer::Engineer(int id): Robot(id, 250, 150) {}

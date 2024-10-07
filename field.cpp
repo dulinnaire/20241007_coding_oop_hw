@@ -17,3 +17,7 @@ int Field::len() const {
 void Field::move(Robot* robot, int new_pos) {
     this->field[robot] = new_pos;
 }
+
+Robot* Field::get_robot(int i) const {
+    return this->robots[i];
+}
