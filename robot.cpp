@@ -1,9 +1,18 @@
 #include "robot.h"
+#include <iostream>
 
-Robot::Robot(int id): id(id) {}
+Robot::Robot(int id, int health, int power): id(id), health(health), power(power), field(nullptr) {}
 
 int Robot::get_id() const {
     return id;
+}
+
+Field* Robot::get_field() {
+    return this->field;
+}
+
+void Robot::set_field(Field* f) {
+    this->field = f;
 }
 
 int Robot::get_health() const {
@@ -22,7 +31,7 @@ void Robot::set_power(int power) {
     this->power = power;
 }
 
-Hero::Hero(int id): Robot(id), health(500), power(120) {}
+Hero::Hero(int id): Robot(id, 500, 120) {}
 
 std::string Hero::get_type() const {
     return "Hero";
@@ -32,7 +41,25 @@ int Hero::get_attack() const {
     return 50;
 }
 
-Engineer::Engineer(int id): Robot(id), health(250), power(150) {}
+void Hero::action() {
+    // Print info
+    std::cout << this->get_type() << "(" << this->get_id() << ") is acting" << std::endl;
+    std::cout << "HP: " << this->get_health() << std::endl;
+    std::cout << "Power: " << this->get_power() << std::endl;
+
+    // Select action
+    int tmp = 0;
+    ROBOT_ACTION act = EMPTY;
+    while (!(act == MOVE || act == ATTACK)) {
+        std::cout << "Select action: " << std::endl;
+        std::cin >> tmp;
+        act = (ROBOT_ACTION)tmp;
+    }
+
+    // Perform action
+}
+
+Engineer::Engineer(int id): Robot(id, 250, 150) {}
 
 std::string Engineer::get_type() const {
     return "Engineer";
@@ -41,8 +68,9 @@ std::string Engineer::get_type() const {
 int Engineer::get_attack() const {
     return 0;
 }
+void Engineer::action() {}
 
-Soldier::Soldier(int id): Robot(id), health(400), power(100) {}
+Soldier::Soldier(int id): Robot(id, 400, 100) {}
 
 std::string Soldier::get_type() const {
     return "Soldier";
@@ -52,7 +80,9 @@ int Soldier::get_attack() const {
     return 10;
 }
 
-Sentinel::Sentinel(int id): Robot(id), health(400), power(100) {}
+void Soldier::action() {}
+
+Sentinel::Sentinel(int id): Robot(id, 400, 100) {}
 
 std::string Sentinel::get_type() const {
     return "Sentinel";
@@ -61,3 +91,5 @@ std::string Sentinel::get_type() const {
 int Sentinel::get_attack() const {
     return 10;
 }
+
+void Sentinel::action() {}

@@ -4,6 +4,7 @@
 Field::Field(Robot* team[]) {
     this->length = 20;
     for (int i = 0; i < 6; i++) {
+        team[i]->set_field(this);
         this->robots[i] = team[i];
         this->field[team[i]] = 0;
     }
