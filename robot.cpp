@@ -50,6 +50,7 @@ void Hero::action() {
     std::cout << this->get_type() << "(" << this->get_id() << ") is acting" << std::endl;
     std::cout << "HP: " << this->get_health() << std::endl;
     std::cout << "Power: " << this->get_power() << std::endl;
+    std::cout << "Position: " << this->get_field()->get_pos(this) << std::endl;
 
     // Select action
     int tmp = 0;
@@ -106,6 +107,7 @@ void Engineer::action() {
     std::cout << this->get_type() << "(" << this->get_id() << ") is acting" << std::endl;
     std::cout << "HP: " << this->get_health() << std::endl;
     std::cout << "Power: " << this->get_power() << std::endl;
+    std::cout << "Position: " << this->get_field()->get_pos(this) << std::endl;
 
     // Select action
     int tmp = 0;
