@@ -55,17 +55,18 @@ void Hero::action() {
     int tmp = 0;
     ROBOT_ACTION act = EMPTY;
     while (!(act == MOVE || act == ATTACK)) {
-        std::cout << "Select action: " << std::endl;
+        std::cout << "Select action(1 for MOVE, 1 for ATTACK): " << std::endl;
         std::cin >> tmp;
         act = (ROBOT_ACTION)tmp;
     }
 
+    Robot* target;
     // Perform action
     switch (act) {
         case MOVE:
             tmp = -1;
             while (!(0 <= tmp && tmp < this->get_field()->len())) {
-                std::cout << "Select moving: " << std::endl;
+                std::cout << "Select moving(0 to 19): " << std::endl;
                 std::cin >> tmp;
             }
             std::cout << "Move to: position " << tmp << std::endl;
@@ -78,12 +79,15 @@ void Hero::action() {
                   && this->get_field()->get_robot(tmp)->get_health() > 0)
             )
             {
-                std::cout << "Select attack target: " << std::endl;
+                std::cout << "Select attack target(1 to 5): " << std::endl;
                 std::cin >> tmp;
             }
-            Robot* target = this->get_field()->get_robot(tmp);
+            target = this->get_field()->get_robot(tmp);
             target->set_health(target->get_health() - this->get_attack());
             std::cout << "Attack on: " << target->get_type() << target->get_id() << std::endl;
+            break;
+        default:
+            std::cout << "Invalid action" << std::endl;
             break;
     }
 }
@@ -97,7 +101,64 @@ std::string Engineer::get_type() const {
 int Engineer::get_attack() const {
     return 0;
 }
-void Engineer::action() {}
+void Engineer::action() {
+    // Print info
+    std::cout << this->get_type() << "(" << this->get_id() << ") is acting" << std::endl;
+    std::cout << "HP: " << this->get_health() << std::endl;
+    std::cout << "Power: " << this->get_power() << std::endl;
+
+    // Select action
+    int tmp = 0;
+    ROBOT_ACTION act = EMPTY;
+    while (!(act == MOVE || act == MINING || act == EXCHANGE_ORE)) {
+        std::cout << "Select action(1 for MOVE, 4 for MINING, 5 for EXCHANGE_ORE): " << std::endl;
+        std::cin >> tmp;
+        act = (ROBOT_ACTION)tmp;
+    }
+
+    int pos;
+    // Perform action
+    switch (act) {
+        case MOVE:
+            tmp = -1;
+            while (!(0 <= tmp && tmp < this->get_field()->len())) {
+                std::cout << "Select moving(0 to 19): " << std::endl;
+                std::cin >> tmp;
+            }
+            std::cout << "Move to: position " << tmp << std::endl;
+            this->get_field()->move(this, tmp);
+            break;
+        case MINING:
+            tmp = -1;
+            pos = this->get_field()->get_pos(this);
+            while (tmp != 0) {
+                std::cout << "Select mining(0 for mine): " << std::endl;
+                std::cin >> tmp;
+            }
+            if ((5 <= pos && pos < 8) || (12 < pos && pos <= 15)) {
+                std::cout << "Get ore at: position " << pos << std::endl;
+            } else {
+                std::cout << "No ore at: position " << pos << std::endl;
+            }
+            break;
+        case EXCHANGE_ORE:
+            tmp = -1;
+            pos = this->get_field()->get_pos(this);
+            while (tmp != 0) {
+                std::cout << "Select exchanging(0 for exchange): " << std::endl;
+                std::cin >> tmp;
+            }
+            if (pos == 0 || pos == 19) {
+                std::cout << "Exchange succeeds!" << std::endl;
+            } else {
+                std::cout << "Exchange fails!" << std::endl;
+            }
+            break;
+        default:
+            std::cout << "Invalid action" << std::endl;
+            break;
+    }
+}
 
 Soldier::Soldier(int id): Robot(id, 400, 100) {}
 
