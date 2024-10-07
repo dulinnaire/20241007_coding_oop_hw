@@ -21,3 +21,7 @@ void Field::move(Robot* robot, int new_pos) {
 Robot* Field::get_robot(int i) const {
     return this->robots[i];
 }
+
+int Field::get_pos(Robot* robot) {
+    return this->field[robot];
+}

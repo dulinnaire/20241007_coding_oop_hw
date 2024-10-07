@@ -7,6 +7,8 @@
 // 机器人行为枚举
 enum ROBOT_ACTION { EMPTY, MOVE, ATTACK, HIT_RUNE, MINING, EXCHANGE_ORE };
 
+class Field;
+
 // 机器人基类
 class Robot {
 public:
@@ -48,6 +50,7 @@ private:
 
 // 工程机器人
 class Engineer: public Robot {
+public:
     Engineer(int id);
 
     virtual std::string get_type() const;
@@ -59,6 +62,7 @@ private:
 
 // 步兵机器人
 class Soldier: public Robot {
+public:
     Soldier(int id);
 
     virtual std::string get_type() const;
@@ -70,6 +74,7 @@ private:
 
 // 哨兵机器人
 class Sentinel: public Robot {
+public:
     Sentinel(int id);
 
     virtual std::string get_type() const;

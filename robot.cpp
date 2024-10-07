@@ -64,7 +64,7 @@ void Hero::action() {
     switch (act) {
         case MOVE:
             tmp = -1;
-            while (!(0 <= tmp || tmp < this->get_field()->len())) {
+            while (!(0 <= tmp && tmp < this->get_field()->len())) {
                 std::cout << "Select moving: " << std::endl;
                 std::cin >> tmp;
             }
@@ -73,7 +73,10 @@ void Hero::action() {
             break;
         case ATTACK:
             tmp = -1;
-            while (!((0 <= tmp || tmp < 6) && this->get_field()->get_robot(tmp)->get_health() > 0))
+            while (
+                !((0 <= tmp && tmp < 6) && tmp != this->get_id()
+                  && this->get_field()->get_robot(tmp)->get_health() > 0)
+            )
             {
                 std::cout << "Select attack target: " << std::endl;
                 std::cin >> tmp;
